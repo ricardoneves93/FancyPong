@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class Ball : MonoBehaviour {
+public class Ball : MonoBehaviour, Effects {
 
     public float speed = 1000;
     public float targetForce = Mathf.Sqrt(20);
     Rigidbody2D rb;
     public bool playerTurn;
+    private int ballLocation;
 
 
     void Awake ()
@@ -24,15 +26,15 @@ public class Ball : MonoBehaviour {
         // Compute a random position in the line
         GameObject half = GameObject.FindGameObjectWithTag("Half");
         float halfPosY = half.transform.position.y;
-        float randomBallPosX = Random.Range(-2.8f, 2.8f);
+        float randomBallPosX = UnityEngine.Random.Range(-2.8f, 2.8f);
 
         Vector2 finalPos = new Vector2(randomBallPosX, halfPosY);
 
         gameObject.transform.position = finalPos;
 
-        int directionX = Random.Range(0, 1);
+        int directionX = UnityEngine.Random.Range(0, 1);
 
-        float forceX = Random.Range(0.2f, targetForce);
+        float forceX = UnityEngine.Random.Range(0.2f, targetForce);
 
         if (directionX == 1)
             forceX = -forceX;
@@ -54,8 +56,9 @@ public class Ball : MonoBehaviour {
 	
 	void Update ()
     {
-	
-	}
+        updateBallField();
+        blinkBall(0, 1.0f);
+    }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
@@ -70,4 +73,63 @@ public class Ball : MonoBehaviour {
             coll.gameObject.GetComponent<AudioSource>().Play();
         }
     }
+
+    void updateBallField()
+    {
+        if (gameObject.GetComponent<Transform>().position.y < 0)
+            ballLocation = 1;
+        else ballLocation = 2;
+    }
+
+    // Interface Methods
+
+    public void blinkBall(int mode, float blinkInterval)
+    {
+        if (mode == 0)
+        {
+            Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
+            gameObject.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
+        }
+        else if(mode == 1)
+        {
+            if(ballLocation == 1)
+            {
+                // Check in which field is the ball
+                Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
+                gameObject.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
+            }
+            else
+            {
+                gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+            }
+            
+        }
+        else if(mode == 2)
+        {
+            if (ballLocation == 2)
+            {
+                // Check in which field is the ball
+                Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
+                gameObject.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
+            }
+            else
+            {
+                gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+            }
+        }
+        
+       
+    }
+}
+
+
+interface Effects
+{
+    /// <summary>
+    /// Mode: 0 => Ball blinks on both fields
+    /// Mode: 1 => Ball blinks on player 1 field
+    /// Mode: 2 => Ball blinks on player 2 field
+    /// </summary>
+    /// <param name="mode"></param>
+    void blinkBall(int mode, float blinkInterval);
 }
