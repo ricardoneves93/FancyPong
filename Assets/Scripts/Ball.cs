@@ -4,7 +4,7 @@ using System;
 
 public class Ball : MonoBehaviour, Effects {
 
-    public float speed = 1000;
+    public float speed = 500;
     public float targetForce = Mathf.Sqrt(20);
     Rigidbody2D rb;
     public bool playerTurn;
@@ -57,7 +57,7 @@ public class Ball : MonoBehaviour, Effects {
 	void Update ()
     {
         updateBallField();
-        blinkBall(0, 1.0f);
+        blinkBall(1, 1.0f);
     }
 
     void OnCollisionEnter2D(Collision2D coll)

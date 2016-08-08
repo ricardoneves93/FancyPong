@@ -10,4 +10,5 @@ public static class GameLogic {
         playerTurn = !playerTurn;
         return playerTurn;
     }
+
 }
