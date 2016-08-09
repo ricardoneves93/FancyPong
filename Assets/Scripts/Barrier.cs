@@ -26,6 +26,7 @@ public class Barrier : MonoBehaviour {
 
 		// Erase barrier
 		Destroy(gameObject, audio.clip.length);
+		GameLogic.hasBarrier = false;
 
 	}
 }
