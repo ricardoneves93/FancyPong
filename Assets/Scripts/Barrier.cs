@@ -1,14 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Barrier: MonoBehaviour {
+public class Barrier : MonoBehaviour {
 
-    public GameObject barrier;
-    GameObject prefabClone;
 
-    void Start()
-    {
-        Debug.Log("start");
-        prefabClone = Instantiate(barrier, transform.position, Quaternion.identity) as GameObject;
-    }
+	void Start () 
+	{
+	
+	}
+	
+
+	void Update () 
+	{
+	
+	}
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		// Play the barrier sound
+		AudioSource audio =  GetComponent<AudioSource>();
+		audio.Play ();
+
+		// Give the player a new power-up
+
+
+		// Erase barrier
+		Destroy(gameObject, audio.clip.length);
+
+	}
 }
