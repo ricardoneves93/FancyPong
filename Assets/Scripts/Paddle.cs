@@ -4,6 +4,7 @@ using System.Collections;
 public class Paddle : MonoBehaviour {
 
     public float paddleSpeed = 1;
+	public PowerUp powerUp;
 
 	void Update ()
     {

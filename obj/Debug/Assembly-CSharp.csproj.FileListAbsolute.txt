@@ -18,3 +18,4 @@ D:\Documentos\Workspace\Unity\FancyPong\Temp\bin\Debug\UnityEngine.UI.xml
 D:\Documentos\Workspace\Unity\FancyPong\Temp\bin\Debug\UnityEngine.Networking.xml
 D:\Documentos\Workspace\Unity\FancyPong\obj\Debug\Assembly-CSharp.dll
 D:\Documentos\Workspace\Unity\FancyPong\obj\Debug\Assembly-CSharp.pdb
+D:\Documentos\Workspace\Unity\FancyPong\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

@@ -2,13 +2,13 @@
 using System.Collections;
 using System;
 
-public class Ball : MonoBehaviour, Effects {
+public class Ball : MonoBehaviour {
 
     public float speed = 500;
     public float targetForce = Mathf.Sqrt(20);
     Rigidbody2D rb;
     public bool playerTurn;
-    private int ballLocation;
+    public int ballLocation;
 
 
     void Awake ()
@@ -57,7 +57,7 @@ public class Ball : MonoBehaviour, Effects {
 	void Update ()
     {
         updateBallField();
-        blinkBall(1, 1.0f);
+        //blinkBall(1, 1.0f);
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -82,7 +82,7 @@ public class Ball : MonoBehaviour, Effects {
     }
 
     // Interface Methods
-
+	/*
     public void blinkBall(int mode, float blinkInterval)
     {
         if (mode == 0)
@@ -120,16 +120,7 @@ public class Ball : MonoBehaviour, Effects {
         
        
     }
+    */
+
 }
 
-
-interface Effects
-{
-    /// <summary>
-    /// Mode: 0 => Ball blinks on both fields
-    /// Mode: 1 => Ball blinks on player 1 field
-    /// Mode: 2 => Ball blinks on player 2 field
-    /// </summary>
-    /// <param name="mode"></param>
-    void blinkBall(int mode, float blinkInterval);
-}
