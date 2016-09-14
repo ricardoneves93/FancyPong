@@ -8,18 +8,19 @@ public class BarrierInstantiator: MonoBehaviour {
 
     void Start()
     {
-        
+		StartCoroutine (GameLogic.setBarrierDelay((GameObject) null, 0.0f));
     }
 
 	void Update()
 	{
-		instantiateBarrier ();
+		instantiateBarrier();
 	}
 
 	void instantiateBarrier()
 	{
-		if (!GameLogic.hasBarrier) 
+		if (!GameLogic.hasBarrier && GameLogic.hasDelayFinished) 
 		{
+			GameLogic.hasDelayFinished = false;
 			GameLogic.hasBarrier = true;
 			// Generate a random number for Y coordinates of the barrier
 			float randomBarrierY = UnityEngine.Random.Range(-2.0f, 2.0f);
@@ -31,4 +32,6 @@ public class BarrierInstantiator: MonoBehaviour {
 		}
 
 	}
+
+
 }
