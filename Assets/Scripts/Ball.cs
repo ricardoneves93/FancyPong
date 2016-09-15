@@ -9,6 +9,10 @@ public class Ball : MonoBehaviour {
     Rigidbody2D rb;
     public bool playerTurn;
     public int ballLocation;
+	/* A smaller force avoids a spawn that has too much horizontal force */
+	private const float spawnBallXForce = 1.0f;
+	/* Avoids the ball to travel in 100% vertical direction continually (applies some randomness)*/
+	private const float randomForceMaximum = 0.5f;
 
 
     void Awake ()
@@ -34,7 +38,7 @@ public class Ball : MonoBehaviour {
 
         int directionX = UnityEngine.Random.Range(0, 1);
 
-        float forceX = UnityEngine.Random.Range(0.2f, targetForce);
+		float forceX = UnityEngine.Random.Range(spawnBallXForce, targetForce);
 
         if (directionX == 1)
             forceX = -forceX;
@@ -71,6 +75,7 @@ public class Ball : MonoBehaviour {
         {
             // Play the paddle sound
             coll.gameObject.GetComponent<AudioSource>().Play();
+			this.applyRandomForce ();
         }
     }
 
@@ -80,6 +85,15 @@ public class Ball : MonoBehaviour {
             ballLocation = 1;
         else ballLocation = 2;
     }
+
+	public void applyRandomForce() {
+		Vector2 forces;
+
+		forces.x = UnityEngine.Random.Range(0.0f, randomForceMaximum);
+		forces.y = UnityEngine.Random.Range(0.0f, randomForceMaximum);
+
+		rb.AddForce (forces, ForceMode2D.Impulse);
+	}
 
     // Interface Methods
 	/*
