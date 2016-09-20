@@ -14,14 +14,20 @@ public class Ball : MonoBehaviour {
 	/* Avoids the ball to travel in 100% vertical direction continually (applies some randomness)*/
 	private const float randomForceMaximum = 0.5f;
 
+	void Start()
+	{
+		this.gameObject.GetComponent<Renderer> ().enabled = false;
+	}
+
 
     void Awake ()
     {
-        spawnBall(false);
+		StartCoroutine(GameLogic.waitForKeyDown(KeyCode.Space, this));
     }
 
     public void spawnBall(bool playerTurn)
     {
+		this.gameObject.GetComponent<Renderer> ().enabled = true;
         // Set player turn
         this.playerTurn = playerTurn;
 
@@ -61,7 +67,6 @@ public class Ball : MonoBehaviour {
 	void Update ()
     {
         updateBallField();
-        //blinkBall(1, 1.0f);
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -86,7 +91,8 @@ public class Ball : MonoBehaviour {
         else ballLocation = 2;
     }
 
-	public void applyRandomForce() {
+	public void applyRandomForce() 
+	{
 		Vector2 forces;
 
 		forces.x = UnityEngine.Random.Range(0.0f, randomForceMaximum);
@@ -135,6 +141,7 @@ public class Ball : MonoBehaviour {
        
     }
     */
+
 
 }
 

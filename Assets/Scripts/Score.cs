@@ -7,18 +7,10 @@ public class Score : MonoBehaviour {
     private int score = 0;
     public bool isTurn;
 
-    void Start ()
-    {
-	
-	}
-	
-	void Update ()
-    {
-
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
+		// Wait for keydown to spawn the ball
+		StartCoroutine(GameLogic.waitForKeyDown(KeyCode.Space, other.GetComponent<Ball>()));
 
         if (other.tag == "Ball")
         {
@@ -32,18 +24,7 @@ public class Score : MonoBehaviour {
                 score++;
                 GameObject.Find("ScorePlayer2").GetComponent<Text>().text = "" + score;
             }
-
-            // Restart the level changing turns
-            // New Ball instance
-            StartCoroutine(waitForKeyDown(KeyCode.Space, other));
+				
         }
-    }
-
-    IEnumerator waitForKeyDown(KeyCode keyCode, Collider2D other)
-    {
-        while (!Input.GetKeyDown(keyCode))
-            yield return null;
-
-        other.GetComponent<Ball>().spawnBall(GameLogic.changePlayerTurn());
     }
 }

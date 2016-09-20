@@ -5,17 +5,6 @@ public class Barrier : MonoBehaviour {
 
 	public bool isActive = true;
 
-	void Start () 
-	{
-	
-	}
-	
-
-	void Update () 
-	{
-	
-	}
-
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		if (isActive) 

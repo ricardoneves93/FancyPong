@@ -18,7 +18,7 @@ public class BarrierInstantiator: MonoBehaviour {
 
 	void instantiateBarrier()
 	{
-		if (!GameLogic.hasBarrier && GameLogic.hasDelayFinished) 
+		if (!GameLogic.hasBarrier && GameLogic.hasDelayFinished && !GameLogic.isGamePaused) 
 		{
 			GameLogic.hasDelayFinished = false;
 			GameLogic.hasBarrier = true;
