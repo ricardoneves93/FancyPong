@@ -22,10 +22,10 @@ public class Barrier : MonoBehaviour {
 			switch (powerUpId)
 			{
 			case 1:
-				powerUp = new BlinkBall (other.GetComponent<Ball>(), 1.0f);
+				powerUp = new BlinkBall (other.GetComponent<Ball>(), 1.5f);
 				break;
 			default:
-				powerUp = new BlinkBall (other.GetComponent<Ball>(), 1.0f);
+				powerUp = new BlinkBall (other.GetComponent<Ball>(), 1.5f);
 				break;
 			}
 
@@ -35,12 +35,12 @@ public class Barrier : MonoBehaviour {
 			if (velocity.y > 0) 
 			{
 				// Give the player the chosen power-up
-				powerUp.apply(1);
+				StartCoroutine(powerUp.apply(1));
 			} 
 			else if (velocity.y < 0) 
 			{
 				// Give the player the chosen power-up
-				powerUp.apply(2);
+				StartCoroutine(powerUp.apply(2));
 			}
 
 

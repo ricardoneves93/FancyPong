@@ -3,17 +3,25 @@ using System.Collections;
 
 public abstract class PowerUp {
 	private static int numberPowerUps = 1;
+	protected float powerUpDurationSecs = 10.0f;
+	protected float startTime;
+	protected float actualTime;
 
 	protected PowerUp()
 	{
 	}
 
-	public abstract void apply(int player);
+	public abstract IEnumerator apply(int player);
 
 	public static int getRandomPowerUp()
 	{
 		int powerUpId = UnityEngine.Random.Range(0, numberPowerUps + 1);
 		return powerUpId;
+	}
+
+	protected float getElapsedTime()
+	{
+		return (actualTime - startTime);
 	}
 }
 
@@ -29,37 +37,52 @@ class BlinkBall : PowerUp {
 		this.ball = ball;
 	}
 
-	public override void apply(int player)
+	public override IEnumerator apply(int player)
 	{
+		startTime = Time.time;
+		actualTime = startTime;
 
-		Debug.Log ("PowerUp");
-		if(player == 1)
+		while ( getElapsedTime() < powerUpDurationSecs) 
 		{
-			if(ball.ballLocation == 1)
+			Debug.Log ("Elapsed Time: " + getElapsedTime ());
+			if(player == 1)
 			{
-				// Check in which field is the ball
-				Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
-				ball.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
-			}
-			else
-			{
-				ball.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-			}
+				if(ball.ballLocation == 2)
+				{
+					// Check in which field is the ball
+					Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
+					Debug.Log ("Blink player 1");
+					ball.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
+				}
+				else
+				{
+					ball.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+				}
 
-		}
-		else if(player == 2)
-		{
-			if (ball.ballLocation == 2)
-			{
-				// Check in which field is the ball
-				Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
-				ball.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
 			}
-			else
+			else if(player == 2)
 			{
-				ball.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+				if (ball.ballLocation == 1)
+				{
+					// Check in which field is the ball
+					Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
+					Debug.Log ("Blink player 2");
+					ball.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
+				}
+				else
+				{
+					ball.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+				}
 			}
+			actualTime = Time.time;
+			yield return null;
 		}
+
+
+
+
+
+
 	}
 }
 	

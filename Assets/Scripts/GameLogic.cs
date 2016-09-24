@@ -18,8 +18,8 @@ public static class GameLogic {
 	{
 		hasDelayFinished = false;
 		yield return new WaitForSeconds(3);
-		if(gameobjectToDestroy != null)
-			MonoBehaviour.Destroy(gameobjectToDestroy, delayToErase);
+		//if(gameobjectToDestroy != null)
+			//MonoBehaviour.Destroy(gameobjectToDestroy, delayToErase);
 		hasDelayFinished = true;
 
 	}

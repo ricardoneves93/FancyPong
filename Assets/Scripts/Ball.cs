@@ -100,48 +100,5 @@ public class Ball : MonoBehaviour {
 
 		rb.AddForce (forces, ForceMode2D.Impulse);
 	}
-
-    // Interface Methods
-	/*
-    public void blinkBall(int mode, float blinkInterval)
-    {
-        if (mode == 0)
-        {
-            Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
-            gameObject.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
-        }
-        else if(mode == 1)
-        {
-            if(ballLocation == 1)
-            {
-                // Check in which field is the ball
-                Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
-                gameObject.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
-            }
-            else
-            {
-                gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-            }
-            
-        }
-        else if(mode == 2)
-        {
-            if (ballLocation == 2)
-            {
-                // Check in which field is the ball
-                Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
-                gameObject.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
-            }
-            else
-            {
-                gameObject.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-            }
-        }
-        
-       
-    }
-    */
-
-
 }
 
