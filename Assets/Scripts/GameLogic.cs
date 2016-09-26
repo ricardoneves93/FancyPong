@@ -17,9 +17,9 @@ public static class GameLogic {
 	public static IEnumerator setBarrierDelay(GameObject gameobjectToDestroy, float delayToErase)
 	{
 		hasDelayFinished = false;
-		yield return new WaitForSeconds(3);
-		//if(gameobjectToDestroy != null)
-			//MonoBehaviour.Destroy(gameobjectToDestroy, delayToErase);
+		yield return new WaitForSeconds((int) Constants.POWER_UP_DURATION_SECS);
+		if(gameobjectToDestroy != null)
+			MonoBehaviour.Destroy(gameobjectToDestroy, delayToErase);
 		hasDelayFinished = true;
 
 	}

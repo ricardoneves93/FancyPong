@@ -2,8 +2,6 @@
 using System.Collections;
 
 public abstract class PowerUp {
-	private static int numberPowerUps = 1;
-	protected float powerUpDurationSecs = 10.0f;
 	protected float startTime;
 	protected float actualTime;
 
@@ -15,7 +13,7 @@ public abstract class PowerUp {
 
 	public static int getRandomPowerUp()
 	{
-		int powerUpId = UnityEngine.Random.Range(0, numberPowerUps + 1);
+		int powerUpId = UnityEngine.Random.Range(0, Constants.NUMBER_POWER_UPS + 1);
 		return powerUpId;
 	}
 
@@ -42,16 +40,14 @@ class BlinkBall : PowerUp {
 		startTime = Time.time;
 		actualTime = startTime;
 
-		while ( getElapsedTime() < powerUpDurationSecs) 
+		while ( getElapsedTime() < Constants.POWER_UP_DURATION_SECS)
 		{
-			Debug.Log ("Elapsed Time: " + getElapsedTime ());
 			if(player == 1)
 			{
 				if(ball.ballLocation == 2)
 				{
 					// Check in which field is the ball
 					Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
-					Debug.Log ("Blink player 1");
 					ball.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
 				}
 				else
@@ -66,7 +62,6 @@ class BlinkBall : PowerUp {
 				{
 					// Check in which field is the ball
 					Color lerpedColor = Color.Lerp(Color.white, Color.black, Mathf.PingPong(Time.time, blinkInterval));
-					Debug.Log ("Blink player 2");
 					ball.GetComponent<Renderer>().material.SetColor("_Color", lerpedColor);
 				}
 				else
@@ -78,11 +73,41 @@ class BlinkBall : PowerUp {
 			yield return null;
 		}
 
-
-
-
-
-
 	}
 }
-	
+
+
+class ResizePaddle: PowerUp {
+
+	protected Paddle paddleP1;
+	protected Paddle paddleP2;
+	protected float resizeValue;
+
+	public ResizePaddle(Paddle paddleP1, Paddle paddleP2, float resizeValue)
+	{
+		this.paddleP1 = paddleP1;
+		this.paddleP2 = paddleP2;
+		this.resizeValue = resizeValue;
+	}
+
+	public override IEnumerator apply (int player)
+	{
+		startTime = Time.time;
+		actualTime = startTime;
+
+		if(player == 1)
+			paddleP1.transform.localScale += new Vector3 (0, resizeValue, 0);
+		else paddleP2.transform.localScale += new Vector3 (0, resizeValue, 0);
+
+		while (getElapsedTime () < Constants.POWER_UP_DURATION_SECS) 
+		{
+			actualTime = Time.time;
+			yield return null;
+		}
+			
+
+		if(player == 1)
+			paddleP1.transform.localScale -= new Vector3 (0, resizeValue, 0);
+		else paddleP2.transform.localScale -= new Vector3 (0, resizeValue, 0);
+	}
+}
