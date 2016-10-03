@@ -73,6 +73,8 @@ class BlinkBall : PowerUp {
 			yield return null;
 		}
 
+		ball.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+
 	}
 }
 

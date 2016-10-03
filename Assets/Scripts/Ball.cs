@@ -12,7 +12,7 @@ public class Ball : MonoBehaviour {
 	/* A smaller force avoids a spawn that has too much horizontal force */
 	private const float spawnBallXForce = 1.0f;
 	/* Avoids the ball to travel in 100% vertical direction continually (applies some randomness)*/
-	private const float randomForceMaximum = 0.5f;
+	private const float randomForceMaximum = 0.6f;
 
 	void Start()
 	{
